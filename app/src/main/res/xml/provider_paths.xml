@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Paths xmlns:android="http://schemas.android.com/apk/res/android">
-    <external-path
-        name="image_path"
-        paht="/"/>
+<paths>
     <external-path
         name="external_files"
         path="Hello_Word/" />
@@ -10,4 +7,4 @@
         name="external_storage_root"
         path="." />
     <root-path name="root_path" path="."/>
-</Paths>
+</paths>
