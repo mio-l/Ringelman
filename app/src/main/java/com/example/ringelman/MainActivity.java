@@ -34,6 +34,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     Button btn_cam;
+    com.example.ringelman.DragScaleView dv1;
     Button btn_cal;
     Button btn_pic;
     Uri image_uri;
@@ -67,17 +68,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent,1);
             }
         });
-
+        dv1=findViewById(R.id.dv1);
         btn_cal=findViewById(R.id.btn_cal);
         btn_cal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, ResultActivity.class);
                 if(iv1.getDrawable()!=null) {
-                    Bitmap bitmap = ((BitmapDrawable) iv1.getDrawable()).getBitmap();
+                    iv1.setDrawingCacheEnabled(true);
+                    iv1.buildDrawingCache();
+                    Bitmap bitmap = iv1.getDrawingCache();
+                    Bitmap bmp=Bitmap.createBitmap(bitmap,
+                            dv1.getLeftline(),
+                            dv1.getTopline(),
+                            dv1.getCutWidth(),
+                            dv1.getCutHeight());
                     Bundle bundle=new Bundle();
-                    bundle.putBinder("bitmap",new BitmapBinder(bitmap));
+                    bundle.putBinder("bitmap",new BitmapBinder(bmp));
                     intent.putExtras(bundle);
+                    iv1.setDrawingCacheEnabled(false);
                     startActivity(intent);
                 }else {
                     Toast.makeText(MainActivity.this, "请选择图片", Toast.LENGTH_SHORT).show();
